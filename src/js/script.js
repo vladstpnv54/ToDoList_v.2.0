@@ -12,3 +12,9 @@ var todoStorage = {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
   }
 }
+
+var filters = {
+  all: function (todos) {
+    return todos
+  },
+}
