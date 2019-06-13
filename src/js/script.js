@@ -70,3 +70,73 @@ var app = new Vue({
       return n === 1 ? 'item' : 'items'
     }
   },
+
+  methods: {
+    addTodo: function () {
+      var value = this.newTodo && this.newTodo.trim()
+      if (!value) {
+        return
+      }
+      this.todos.push({
+        id: todoStorage.uid++,
+        title: value,
+        completed: false
+      })
+      this.newTodo = ''
+    },
+
+    removeTodo: function (todo) {
+      this.todos.splice(this.todos.indexOf(todo), 1)
+    },
+
+    editTodo: function (todo) {
+      this.beforeEditCache = todo.title
+      this.editedTodo = todo
+      console.log(this.editTodo);
+      console.log(todo);
+    },
+
+    doneEdit: function (todo) {
+      if (!this.editedTodo) {
+        return
+      }
+      this.editedTodo = null
+      todo.title = todo.title.trim()
+      if (!todo.title) {
+        this.removeTodo(todo)
+      }
+    },
+
+    cancelEdit: function (todo) {
+      this.editedTodo = null
+      todo.title = this.beforeEditCache
+    },
+
+    removeCompleted: function () {
+      this.todos = filters.active(this.todos)
+    }
+  },
+
+  directives: {
+    'todo-focus': function (el, binding) {
+      if (binding.value) {
+        el.focus()
+      }
+    }
+  }
+})
+
+function onHashChange () {
+  var visibility = window.location.hash.replace(/#\/?/, '')
+  if (filters[visibility]) {
+    app.visibility = visibility
+  } else {
+    window.location.hash = ''
+    app.visibility = 'all'
+  }
+}
+
+window.addEventListener('hashchange', onHashChange)
+onHashChange()
+
+app.$mount('.todoapp')
