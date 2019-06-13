@@ -64,3 +64,9 @@ var app = new Vue({
       }
     }
   },
+
+  filters: {
+    pluralize: function (n) {
+      return n === 1 ? 'item' : 'items'
+    }
+  },
