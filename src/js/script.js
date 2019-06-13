@@ -28,3 +28,20 @@ var filters = {
     })
   }
 }
+
+var app = new Vue({
+  data: {
+    todos: todoStorage.fetch(),
+    newTodo: '',
+    editedTodo: null,
+    visibility: 'all'
+  },
+
+  watch: {
+    todos: {
+      handler: function (todos) {
+        todoStorage.save(todos)
+      },
+      deep: true
+    }
+  },
