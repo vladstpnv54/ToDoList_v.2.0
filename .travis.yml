@@ -1,3 +1,9 @@
-before_script:
-  - npm install -g gulp-cli
-script: gulp
+language: node_js
+node_js:
+  - 6.1
+install:
+  - npm install -g codecov
+script:
+  - npm install
+  - npm run test
+  - codecov
