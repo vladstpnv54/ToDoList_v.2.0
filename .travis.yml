@@ -1,4 +1,9 @@
-before_script:
-  - sudo npm install -g grunt
-
-script: grunt test
+language: node_js
+node_js:
+  - "7"
+before script:
+  - npm install -g gulp
+  - npm install --save-dev gulp
+script:
+  - npm install
+  - npm test
