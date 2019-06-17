@@ -1,11 +1,4 @@
-language: vue_js
-vue_js:
-  - "2.6.10"
-before_install:
-  - npm i -g npm@version-number
-install:
-  - npm install -g codecov
-script:
-  - npm install
-  - npm run test
-  - codecov
+before_script:
+  - sudo npm install -g grunt
+
+script: grunt test
